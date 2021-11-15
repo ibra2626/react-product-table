@@ -2186,6 +2186,7 @@ var Filterableproducttable = /*#__PURE__*/function (_Component) {
       products: _this.props.products
     };
     _this.handleClickStocked = _this.handleClickStocked.bind(_assertThisInitialized(_this));
+    _this.onChangeSearchInput = _this.onChangeSearchInput.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2208,6 +2209,24 @@ var Filterableproducttable = /*#__PURE__*/function (_Component) {
       }
     }
   }, {
+    key: "onChangeSearchInput",
+    value: function onChangeSearchInput(event) {
+      if (event.target.value == "") {
+        this.setState({
+          products: this.props.products
+        });
+      } else {
+        var resultProducts = this.state.products.filter(function (product) {
+          if (product.name.indexOf(event.target.value) != -1) {
+            return product;
+          }
+        });
+        this.setState({
+          products: resultProducts
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -2217,7 +2236,8 @@ var Filterableproducttable = /*#__PURE__*/function (_Component) {
           padding: "1rem"
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          handleClickStocked: this.handleClickStocked
+          handleClickStocked: this.handleClickStocked,
+          onChangeSearchInput: this.onChangeSearchInput
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductTable__WEBPACK_IMPORTED_MODULE_3__["default"], {
           products: this.state.products
         })]
@@ -2513,7 +2533,8 @@ var Searchbar = /*#__PURE__*/function (_Component) {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
             type: "text",
-            placeholder: "Arama"
+            placeholder: "Arama",
+            onChange: this.props.onChangeSearchInput
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
           type: "checkbox",

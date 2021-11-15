@@ -9,6 +9,7 @@ class Filterableproducttable extends Component {
             products : this.props.products
         }
         this.handleClickStocked = this.handleClickStocked.bind(this)
+        this.onChangeSearchInput = this.onChangeSearchInput.bind(this)
     }
     handleClickStocked(event){
         if(event.target.checked){
@@ -26,10 +27,27 @@ class Filterableproducttable extends Component {
             })
         }
     }
+    onChangeSearchInput(event){
+        if(event.target.value == ""){
+            this.setState({
+                products : this.props.products
+            })
+        }else{
+            let resultProducts = this.state.products.filter((product) => {
+                if(product.name.indexOf(event.target.value) != -1){
+                    return product
+                }
+            })
+            this.setState({
+                products : resultProducts
+            })
+        }
+
+    }
     render() {
         return (
             <div style={{border:"1px solid red",width:"250px",padding:"1rem"}}>
-                <Searchbar handleClickStocked={this.handleClickStocked}/>
+                <Searchbar handleClickStocked={this.handleClickStocked} onChangeSearchInput={this.onChangeSearchInput}/>
                 <Producttable products={this.state.products}/>
             </div>
         );

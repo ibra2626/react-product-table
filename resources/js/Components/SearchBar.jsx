@@ -4,7 +4,7 @@ class Searchbar extends Component {
         return (
             <div>
                 <div>
-                    <input type="text" placeholder="Arama"/>
+                    <input type="text" placeholder="Arama" onChange={this.props.onChangeSearchInput}/>
                 </div>
                 <input type="checkbox" onClick={this.props.handleClickStocked}/>
                 <label>Sadece stoktaki ürünleri göster</label>
