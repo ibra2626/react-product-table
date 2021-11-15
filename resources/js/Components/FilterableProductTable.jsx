@@ -5,13 +5,32 @@ import Producttable from './ProductTable';
 class Filterableproducttable extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            products : this.props.products
+        }
+        this.handleClickStocked = this.handleClickStocked.bind(this)
     }
-
+    handleClickStocked(event){
+        if(event.target.checked){
+            let stockedProducts = PRODUCTS.filter((product) => {
+                if(product.stocked){
+                    return product
+                }
+            })
+            this.setState({
+                products : stockedProducts
+            })
+        }else{
+            this.setState({
+                products : this.props.products
+            })
+        }
+    }
     render() {
         return (
             <div style={{border:"1px solid red",width:"250px",padding:"1rem"}}>
-                <Searchbar/>
-                <Producttable products={this.props.products}/>
+                <Searchbar handleClickStocked={this.handleClickStocked}/>
+                <Producttable products={this.state.products}/>
             </div>
         );
     }

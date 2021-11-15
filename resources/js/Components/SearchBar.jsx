@@ -6,7 +6,7 @@ class Searchbar extends Component {
                 <div>
                     <input type="text" placeholder="Arama"/>
                 </div>
-                <input type="checkbox"/>
+                <input type="checkbox" onClick={this.props.handleClickStocked}/>
                 <label>Sadece stoktaki ürünleri göster</label>
             </div>
         );

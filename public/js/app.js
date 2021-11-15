@@ -2177,12 +2177,37 @@ var Filterableproducttable = /*#__PURE__*/function (_Component) {
   var _super = _createSuper(Filterableproducttable);
 
   function Filterableproducttable(props) {
+    var _this;
+
     _classCallCheck(this, Filterableproducttable);
 
-    return _super.call(this, props);
+    _this = _super.call(this, props);
+    _this.state = {
+      products: _this.props.products
+    };
+    _this.handleClickStocked = _this.handleClickStocked.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(Filterableproducttable, [{
+    key: "handleClickStocked",
+    value: function handleClickStocked(event) {
+      if (event.target.checked) {
+        var stockedProducts = PRODUCTS.filter(function (product) {
+          if (product.stocked) {
+            return product;
+          }
+        });
+        this.setState({
+          products: stockedProducts
+        });
+      } else {
+        this.setState({
+          products: this.props.products
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
@@ -2191,8 +2216,10 @@ var Filterableproducttable = /*#__PURE__*/function (_Component) {
           width: "250px",
           padding: "1rem"
         },
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_2__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductTable__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          products: this.props.products
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_SearchBar__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          handleClickStocked: this.handleClickStocked
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_ProductTable__WEBPACK_IMPORTED_MODULE_3__["default"], {
+          products: this.state.products
         })]
       });
     }
@@ -2368,10 +2395,16 @@ var Producttable = /*#__PURE__*/function (_Component) {
 
   var _super = _createSuper(Producttable);
 
-  function Producttable() {
+  function Producttable(props) {
+    var _this;
+
     _classCallCheck(this, Producttable);
 
-    return _super.apply(this, arguments);
+    _this = _super.call(this, props);
+    _this.state = {
+      products: props.products
+    };
+    return _this;
   }
 
   _createClass(Producttable, [{
@@ -2483,7 +2516,8 @@ var Searchbar = /*#__PURE__*/function (_Component) {
             placeholder: "Arama"
           })
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-          type: "checkbox"
+          type: "checkbox",
+          onClick: this.props.handleClickStocked
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
           children: "Sadece stoktaki \xFCr\xFCnleri g\xF6ster"
         })]

@@ -3,7 +3,12 @@ import Categoryrow from './CategoryRow';
 import Productrow from './ProductRow';
 
 class Producttable extends Component {
-
+    constructor(props) {
+        super(props);
+        this.state = {
+            products : props.products
+        }
+    }
     render() {
         const rows = [];
         let lastCategory = null;
